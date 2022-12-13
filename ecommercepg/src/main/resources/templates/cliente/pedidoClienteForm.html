@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<title>pedidosCliente</title>
+</head>
+<body>
+<h1>Insert title here</h1>
+	<!-- MENU DE NAVEGACION -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href="#">Tienda en linea</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarNav" aria-controls="navbarNav"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			
+			<ul class="navbar-nav">
+				<li class="nav-item active"><a class="nav-link"
+					th:href="@{/entrega/listar/pag}">Entregas <span
+						class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/index}"></a>
+				</li>
+			</ul>
+			<ul class="navbar-nav">
+				<li class="nav-item active"><a class="nav-link"
+					th:href="@{/pedido/listar/pag}">Pedidos <span
+						class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/index}"></a>
+				</li>
+			</ul>
+			<ul class="navbar-nav">
+				<li class="nav-item active"><a class="nav-link"
+					th:href="@{/cliente/listar/pag}">Clientes <span
+						class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/index}"></a>
+				</li>
+			</ul>
+			<ul class="navbar-nav">
+				<li class="nav-item active"><a class="nav-link"
+					th:href="@{/pago/listar/pag}">Pagos<span
+						class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/index}"></a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	
+	<!-- INICIO DE PEDIDO-CLIENTE-->
+		<div class="container">
+		<h1
+			class="text-secondary border border-success border-top-0 border-left-0 border-right-0">Lista
+			de Pedidos</h1>
+		<a class="btn btn-success btn-xs" th:href="@{/vendedor/crear}">Registrar Pedido</a>			
+		<hr>
+		<table class="table table-striped table-bordered">
+			<thead class="thead-inverse thead-dark">
+				<tr>
+					<th>ID</th>
+					<th>Fecha Pedido</th>
+					<th>Estado Pedido</th>
+					<th>Total a Pagar</th>
+					<th>Informacion Adicional</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- 			para iterar una lista con foreach en thymeleaf -->
+				<!-- 			se usa th:each -->
+				<tr th:each="pc : ${listaPedidosCliente}">
+					<td th:text="${pc.id}"></td>
+					<td th:text="${pc.fechaPedido}"></td>
+					<td th:text="${pc.totalPagar}"></td>
+					<td th:text="${pc.infoAdicional}"></td>
+					<td><a class="btn btn-secondary btn-sm"
+						th:href="@{/pedido/pedidos/} + ${pc.id}" th:text="'Ver pedidos'"></a></td>
+					<td><a class="btn btn-primary btn-xs"
+						th:href="@{/vendedor/editar/} + ${pc.id}" th:text="'Editar'"></a></td>
+					<td><a class="btn btn-danger btn-xs"
+						th:href="@{/vendedor/eliminar/} + ${pc.id}" th:text="'Eliminar'"
+						onclick="return confirm('Estas seguro que deseas eliminar el usuario?');"></a></td>
+				</tr>
+			</tbody>
+
+		</table>
+		<th:block th:if="${paginacion}">
+			<nav th:replace="paginacion-nav :: paginadorHtml"></nav>
+		<th:block>
+	</div>
+	<!-- FIN DE PEDIDO-CLIENTE-->
+</body>
+</html>

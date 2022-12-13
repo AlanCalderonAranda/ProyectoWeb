@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+	<style type="text/css">
+		body{
+			  background-color: #CBEFFF; 
+			}
+			.cuerpo{  
+			  width: 500px; 
+			  height: auto;
+			  margin: 30px auto;
+			  border-radius: 10px;  
+			  padding-top: 30px;
+			  padding-right:30px; 
+			  padding-bottom: 20px;  
+			  background-color: #FFFFFF; 
+			  padding-left: 30px; 
+			}
+
+	</style>
+<title th:text="${titulo}"></title>
+</head>
+<body>
+
+<!-- MENU DE NAVEGACION -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href="#">Tienda en linea</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarNav" aria-controls="navbarNav"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav">
+				<li class="nav-item active"><a class="nav-link"
+					th:href="@{/vendedor/productos/}+${vendedor.id}">Vendedores <span
+						class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/index}"></a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+
+	<div class = "cuerpo">
+		<h1 style="text-align:center; color: rebeccapurple;" th:text="${titulo}"></h1>
+		<form method="post" th:action="@{/producto/crear/}+${vendedor.id}" th:object="${productoNuevo}">
+			<label>Nombre: </label>
+			<input type="text" th:field="*{nombre}" class="form-control" required = required/>
+			
+			<label>Descripcion: </label>
+			<input type="text" th:field="*{descripcion}" class="form-control" required = required/>
+			
+			<label>Precio: </label>
+			<input type="text" th:field="*{precio}" class="form-control" required = required/>
+			
+			<label>Piezas: </label>
+			<input type="text" th:field="*{numPiezas}" class="form-control" required = required/>
+			
+			<label>Informacion Adicional: </label>
+			<input type="text" th:field="*{informacionAdicional}" class="form-control" required = required/>
+			<label>Estado</label>
+					<select name="estado" class="custom-select col-lg-3 m-1">
+						<option value="" selected disabled>Seleccione</option>
+						<option th:value="1" th:selected="true">Activo</option>
+						<option th:value="0" th:selected="true">Inactivo</option>	
+					</select>
+			
+			<label>Descuento</label>
+					<select  name="descuento" class="custom-select col-lg-3 m-1">
+						<option selected disabled>Seleccione</option>
+						<option th:field="*{descuento}" th:value="5" th:selected="true">5 %</option>
+						<option th:field="*{descuento}" th:value="10" th:selected="true">10 %</option>	
+						<option th:field="*{descuento}" th:value="15" th:selected="true">15 %</option>
+						<option th:field="*{descuento}" th:value="20" th:selected="true">20 %</option>
+						<option th:field="*{descuento}" th:value="30" th:selected="true">30 %</option>
+						<option th:field="*{descuento}" th:value="50" th:selected="true">50 %</option>
+						<option th:field="*{descuento}" th:value="70" th:selected="true">70 %</option>
+					</select>
+			<br/>
+			<label>Bonificacion</label>
+			<input type="number" th:field="*{bonificacion}" min="0" max="100" class="form-control">
+			<br/>		
+			<center><input type="submit" value="Guardar" class = "btn btn-primary" th:field="*{bonificacion}"/></center><br>
+			<center><a class="btn btn-danger btn-xs" th:href="@{/vendedor/productos/}+${vendedor.id}">Cancelar</a></center>
+			<input type ="hidden" th:field="*{id}"/>
+		</form>
+	</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+</body>
+</html>

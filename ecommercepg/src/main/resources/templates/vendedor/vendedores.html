@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<link href="css/stilos.css" rel="stylesheet" type="text/css">
+<title>Vendedores</title>
+</head>
+<body>
+	<!-- MENU DE NAVEGACION -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href="#">Tienda en linea</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarNav" aria-controls="navbarNav"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav">
+				<li class="nav-item active"><a class="nav-link"
+					th:href="@{/vendedor/listar/pag}">Vendedores<span
+						class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/index}"></a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<div class="container">
+		<h1
+			class="text-secondary border border-success border-top-0 border-left-0 border-right-0">Lista
+			de vendedores</h1>
+		<a class="btn btn-success btn-xs" th:href="@{/vendedor/crear}">Registrar Vendedor</a>			
+		<hr>
+		<table class="table table-striped table-bordered">
+			<thead class="thead-inverse thead-dark">
+				<tr>
+					<th>ID</th>
+					<th>Nombre</th>
+					<th>Apellido paterno</th>
+					<th>Apellido materno</th>
+					<th>Username</th>
+					<th>Correo</th>
+					<th>Fecha de Registro</th>
+					<th>Productos</th>
+					<th>Pedidos-Entregas</th>
+					<th>Editar</th>
+					<th>Eliminar</th>
+					<th>Nuevo Producto</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- 			para iterar una lista con foreach en thymeleaf -->
+				<!-- 			se usa th:each -->
+				<tr th:each="v : ${listaVendedores}">
+					<td th:text="${v.id}"></td>
+					<td th:text="${v.nombre}"></td>
+					<td th:text="${v.appaterno}"></td>
+					<td th:text="${v.apmaterno}"></td>
+					<td th:text="${v.username}"></td>
+					<td th:text="${v.correo}"></td>
+					<td th:text="${v.fechaRegistro}"></td>
+					<td>
+						<span th:if="${v.productos.size()==0}" th:text="'No cuenta con productos'"></span>
+						<a th:if="${v.productos.size()>0}" class="btn btn-info btn-sm"
+						th:href="@{/vendedor/productos/} + ${v.id}"
+						th:text="'Productos ('+${v.productos.size()}+')'"></a></td>
+						
+					<td><!-- SI NO TIENE PRODUCTOS POR ENDE NO HAY PEDIDOS -->
+					<span th:if="${v.productos.size()==0}" th:text="'No cuenta con pedidos'"></span>
+					<a th:if="${v.productos.size()>0}" class="btn btn-secondary btn-sm"
+						th:href="@{/pedido/pedidos/} + ${v.id}"
+						th:text="'Pedidos'"></a></td>
+						
+					<td><a class="btn btn-primary btn-xs"
+						th:href="@{/vendedor/editar/} + ${v.id}" th:text="'Editar'"></a></td>
+					<td><a class="btn btn-danger btn-xs"
+						th:href="@{/vendedor/eliminar/} + ${v.id}" th:text="'Eliminar'"
+						onclick="return confirm('Estas seguro que deseas eliminar el usuario?');"></a></td>
+					<td><a class="btn btn-info btn-xs"
+						th:href="@{/producto/crear/} + ${v.id}" th:text="'Nuevo Producto'"></a></td>
+				</tr>
+			</tbody>
+
+		</table>
+		<th:block th:if="${paginacion}">
+			<nav th:replace="paginacion-nav :: paginadorHtml"></nav>
+		<th:block>
+	</div>
+	
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+</body>
+</html>

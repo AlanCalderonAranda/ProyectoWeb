@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+	
+<title>LOGIN</title>
+</head>
+<body  style ="background: #7c9bcc">
+
+	<div class = "container" align="center">		
+		<form method="post" th:action="@{/login/entrar}" th:object="${usuario}" >			
+			<section class="vh-100 gradient-custom">
+				<div class="container py-5 h-100" align="center">
+					<div
+						class="row d-flex justify-content-left align-items-left h-50">
+						<div class="col-12 col-md-8 col-lg-6 col-xl-5">
+							<div class="card bg-dark text-white" style="border-radius: 1rem;" align="center">
+								<div class="card-body p-5 text-center">
+
+									<div class="mb-md-5 mt-md-4 pb-5" align="center">
+
+										<h2 class="fw-bold mb-2 text-uppercase">Login</h2>
+										<div class="form-outline form-white mb-4">
+											<input type="text" th:field="*{correo}"
+												class="form-control form-control-lg" required=required /> <label
+												class="form-label" for="typeEmailX">Email</label>
+										</div>
+
+										<div class="form-outline form-white mb-4" align="center">
+											<input type="password" th:field="*{contrasena}"
+												class="form-control form-control-lg" required=required /> <label
+												class="form-label" for="typePasswordX">Password</label>
+										</div>										
+
+										<button class="btn btn-outline-light btn-lg px-5" align="center"
+											type="submit">Login</button>
+									</div>
+									<div align="center">
+										<p class="mb-0">¿No tienes cuenta? <br>
+										<a th:href="@{login/registrar/vendedor}"	class="text-white-50 fw-bold">Registro Vendedor</a><br>
+										<a th:href="@{login/registrar/cliente}"	class="text-white-50 fw-bold">Registro Cliente</a>
+										</p>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</form>
+		<hr>		
+	</div>
+	<div class="container">	
+	</div>
+
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+</body>
+</html>

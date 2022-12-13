@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+    <title>Pago del Pedido</title>
+    <style>
+        header {
+            background-color: blue;
+        }
+        nav {
+            
+            background-color: coral;
+        }
+
+        section {
+            background-color: aqua;
+        }
+
+        aside {
+            background-color: beige;
+        }
+
+        footer {
+            background-color: blue;
+        }
+        h2{
+            color: #8E83FC;
+        }
+		h1{
+            color: #070707;
+        }
+        label{
+			color: #070707;
+		}
+        #caja_principal{
+            width: 960px;
+            margin: 15px auto;
+            text-align: center;
+        }
+        #menu{
+            background: #CE024F;
+            padding: 5px;
+			
+        }
+        
+        #menu li{
+            display: inline-block;
+            list-style: none;
+            padding: 5px;
+            font: bold 14px verdana, sans-serif;
+        }
+        
+        #area_principal{
+            background: #FFFFFF;
+            float: left;
+            width: 400px;
+			padding: 10px;
+            margin: 10px 0px; <!--separacion de la caja-->
+            
+        }
+        #area_principal img{
+            width: 390px;
+			
+        }
+        
+        #barra_lateral{
+            float: left;
+            width: 520px;
+            padding: 10px;
+            background:  #4488dd;
+			text-align: justify;
+			color: white;
+            margin: 10px 0px; /separacion de la caja/
+        }
+        #pie_pagina{
+            background: #FEE6EF;
+            clear: both;
+            text-align: center;
+            padding: 20px;
+            border-top: 4px solid red;
+        }
+        
+        .img-container {text-align: center;}
+    </style>
+</head>
+
+<body>
+	<!-- MENU DE NAVEGACION -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href="#">Tienda en linea</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarNav" aria-controls="navbarNav"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav">
+				<li class="nav-item active"><a class="nav-link"
+					th:href="@{/cliente/listar/pag}">Clientes <span
+						class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/index}"></a>
+				</li>
+			</ul>
+			
+		</div>
+	</nav>
+
+
+    <div id="caja_principal">
+
+        <section id="area_principal">
+      
+                <h2>Datos de la operacion</h2>
+				<div>
+				<table style="text-align: left" >
+					<tr>
+					<td>Importe: </td>
+					<td th:text="${pedido.getTotalPagar()}"></td>
+					</tr>
+					
+					<tr>
+					<td>Comercio: </td>
+					<td>Tienda Online</td>
+					</tr>
+					
+					
+					<tr>
+					<td>Pedido: </td>
+					<td th:text="${pedido.getId()}"></td>
+					</tr>
+					
+					<tr>
+					<td>Fecha Pedido:</td>
+					<td th:text="${pedido.getFechaPedido()}"></td>
+					</tr>
+					
+					<tr>
+					<td>Articulos: </td>
+					<td th:text="${numProductos}"></td>
+					</tr>
+					
+					<tr>
+					<td>Cliente: </td>
+					<td th:text="${cliente}"></td>
+					</tr>
+					
+				</table>
+				</div>
+        </section>
+		
+        <aside id="barra_lateral"  style=" width: 50%; margin-left: 5%" >
+            <blockquote>
+			<form method="post" th:action="@{/pedido/pagar/}+${pedido.getId()}">
+				<div>
+					<h3 class="container text-center">Pago con Tarjeta</h3><br>
+				</div>
+				<div class="img-container">
+					<img src='https://dl.dropboxusercontent.com/s/ubamyu6mzov5c80/visa_logo%20%281%29.png' 
+					height='80' class='credit-card-image' id='credit-card-image'></img><br>
+					<FONT COLOR="white" >Nº Tajeta:</FONT><br>
+					<input type="text" name="numTarjeta" class="form-control" required = required></input>
+					<br>
+					
+					<div class="col">
+        				<FONT COLOR="white" >Fecha de Expiracion</FONT><br>
+        				<input type="date" name="fechaExpiracion" class="form-control" placeholder="yyyy-MM">
+    				</div>
+					<br>
+					
+					<FONT COLOR="white" >Nombre Completo:</FONT><br>
+					<input type="text" name="nombre" class="form-control" required = required></input>
+					<br>
+					
+					<FONT COLOR="white" >CCV:</FONT><br>
+					<input type="password" name="CCV" class="form-control" required = required></input>
+					<br>
+					
+					<input type="hidden" name="clienteId" th:value="${cliente}"  readonly="readonly">
+					<input type="submit" value="Pagar" class = "btn btn-light"/>
+				</div>
+				
+			</form>
+			<br>
+			<div class="img-container">
+			<a class="btn btn-danger btn-xs" th:href="@{/cliente/pedidos/}+${pedido.getCliente().getId()}">Cancelar</a>
+			
+			<!--<button type="submit" class="btn btn-success">Pagar</button>-->
+			</div>
+			</blockquote>
+        </aside>
+
+    </div>
+</body>
+
+</html>

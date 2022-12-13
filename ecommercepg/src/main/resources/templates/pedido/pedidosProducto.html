@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<title th:text="${titulo}"></title>
+</head>
+<body class="p-3 mb-2 bg-light text-dark" >
+<!-- MENU DE NAVEGACION -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
+		<a  class="navbar-brand" href="#">Tienda en linea</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarNav" aria-controls="navbarNav"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+	</nav>
+	
+<!-- FIN DE MENU DE NAVEGACIÒN  -->
+	<div class="container">
+		<br><h3 class="text-info border border-success border-top-0 border-left-0 border-right-0">Productos del pedido</h3><br>
+		<table class="table table-striped table-bordered">
+			<thead class="thead-inverse thead-dark">
+				<tr>
+					<th>Nombre</th>
+					<th>Descripcion</th>
+					<th>Precio</th>
+					<th>Info. P Adicional</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="p : ${listaProductos}">
+				<td th:text="${p.nombre}"></td>
+				<td th:text="${p.descripcion}"></td>
+				<td th:text="${p.precio}"></td>
+				<td th:text="${p.informacionAdicional}"></td>
+				</tr>
+			</tbody>
+			
+			</table>
+			<br><h3 class="text-info border border-success border-top-0 border-left-0 border-right-0">Datos de la Entrega</h3><br>
+			<table class="table table-striped table-bordered">
+			<thead class="thead-inverse thead-dark">
+				<tr>
+					<th>Fecha de Entrega</th>
+					<th>Hora de Entrega</th>
+					<th>Punto de  Entrega</th>
+					<th>Notas Adicionales</th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<!-- para iterar una lista con foreach en thymeleaf -->
+				<!-- se usa th:each -->
+				<tr >
+				<td th:text="${entrega.getFechaEntrega()}"></td>
+				<td th:text="${entrega.getHoraEntrega()}"></td>
+				<td th:text="${entrega.getPuntoEntrega()}"></td>
+				<td th:text="${entrega.getNotasAdicionales()}"></td>
+				</tr>
+			</tbody>
+			</table>
+	</div>
+
+</body>
+</html>

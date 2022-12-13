@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<link href="css/stilos.css" rel="stylesheet" type="text/css">
+<title th:text="${titulo}"></title>
+</head>
+<body>
+
+<!-- MENU DE NAVEGACION -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href="#">Tienda en linea</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarNav" aria-controls="navbarNav"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav">
+				<li class="nav-item active"><a class="nav-link"
+					th:href="@{/vendedor/productos/}+${vendedor.id}">Vendedores <span
+						class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/index}"></a>
+				</li>
+			</ul>
+			
+		</div>
+	</nav>
+	
+	<div class="container">
+	<h1 class="text-secondary border border-success border-top-0 border-left-0 border-right-0" th:text="${titulo}"></h1>
+	<hr>
+		<div class="card text-white bg-info mb-3" style="max-width: 18rem;">
+			<div class="card-header">Vendedor</div>
+			<div class="card-body">
+				<h5 class="card-title" th:text="${vendedor.nombre}"></h5>
+				<p class="card-text" th:text="${vendedor.correo}"></p>
+			</div>
+		</div>
+	<h3 class="text-info border border-success border-top-0 border-left-0 border-right-0">Pedidos asociados al Vendedor</h3>
+	<table class="table table-striped table-bordered">
+			<thead class="thead-inverse thead-dark">
+				<tr>
+					<th>ID</th>
+					<th>Estado</th>
+					<th>Fecha de pedido</th>
+					<th>Inf. Adicional</th>
+					<th>Total Pedido</th>
+					<th>Detalles Pedido</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="ped : ${pedidos}">
+					<td th:text="${ped.getId()}"></td>
+					<div th:if="${ped.estado == 1}">
+						<td  th:text="'Activo'"></td>
+					</div>
+					<div th:if="${ped.estado != 1}">
+						<td  th:text="'Inactivo'"></td>
+					</div>
+					<td th:text="${ped.fechaPedido}"></td>
+					<td th:text="${ped.infoAdicional}"></td>
+					<td th:text="${ped.totalPagar}"></td>
+					<td><a class="btn btn-info btn-sm"
+						th:href="@{/pedido/pedidosproducto/} + ${ped.getId()}" th:text="Detalles"></a></td>
+				</tr>
+			</tbody>
+	</table>
+	</div>
+</body>
+</html>
